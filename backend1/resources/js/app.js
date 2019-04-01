@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+import 'angular';
 
 window.Vue = require('vue');
 
