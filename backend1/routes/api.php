@@ -17,4 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register', 'Auth\RegisterController@register');
+Route::get('videos', 'VideoController@index');
+Route::get('videos/{video}', 'VideoController@show');
+Route::post('videos', 'VideoController@store');
+Route::put('videos/{video}', 'VideoController@update');
+Route::delete('videos/{video}', 'VideoController@delete');
