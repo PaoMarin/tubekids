@@ -7,40 +7,40 @@
      <h2>First register in the form</h2>
      <br>
      <br>
-    <form style="text-align:left">
+    <div style="text-align:left">
     <div class="form-group" >
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <label>Email address</label>
+      <input type="email" class="form-control" placeholder="Enter email" [(ngModel)]="email">
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <label>Password</label>
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Confirm Password</label>
-      <input type="password_confirm" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <label>Confirm Password</label>
+      <input type="password" class="form-control"placeholder="Password">
     </div>
     <div class="form-group" >
-      <label for="exampleInputName1">Name</label>
-      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Enter Name">
+      <label>Name</label>
+      <input type="name" class="form-control" placeholder="Enter Name" [(ngModel)]="name">
     </div>
     <div class="form-group" >
-      <label for="exampleInputLastname1">Last name</label>
-      <input type="lastname" class="form-control" id="exampleInputLastname1" aria-describedby="lastnameHelp" placeholder="Enter Last name">
+      <label>Last name</label>
+      <input type="lastname" class="form-control" placeholder="Enter Last name" [(ngModel)]="last_name">
     </div>
     <div class="form-group" >
-      <label for="exampleInputCountry1">Country</label>
-      <input type="country" class="form-control" id="exampleInputCountry1" aria-describedby="countryHelp" placeholder="Enter country">
+      <label>Country</label>
+      <input type="country" class="form-control" placeholder="Enter country" [(ngModel)]="country">
     </div>
     <div class="form-group" >
-      <label for="exampleInputBirthdate1">Birthdate</label>
-      <input type="date" class="form-control" id="exampleInputBirthdate1" aria-describedby="birthdateHelp" placeholder="Enter Birthdate">
+      <label>Birthdate</label>
+      <input type="date" class="form-control" placeholder="Enter Birthdate" [(ngModel)]="birth_date">
     </div>
     <div class="form-group" >
-      <label for="exampleInputPhonenumber1">Phone number</label>
-      <input type="number" class="form-control" id="examplephonenumber1"aria-describedby="ponenumberHelp" placeholder="phonenumber">
+      <label>Phone number</label>
+      <input type="number" class="form-control" placeholder="phonenumber"[(ngModel)]="phone_number">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+    <button type="submit" class="btn btn-primary"(click)="register()">Submit</button>
+  </div>
 
 

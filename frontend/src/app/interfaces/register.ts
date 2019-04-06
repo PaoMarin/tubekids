@@ -3,9 +3,9 @@ export interface Register {
     email: string;
     password: string;
     name: string;
-    lastname: string;
+    last_name: string;
     country: string;
-    birthdate: Date;
-    phonenumber: number;
+    birth_date: Date;
+    phone_number: number;
 
 }

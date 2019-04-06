@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistersService } from '../services/registers.service';
-import { HttpClient } from  '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -8,10 +7,21 @@ import { HttpClient } from  '@angular/common/http';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
- API_ENDOPOINT = 'http://localhost:8000/api/users';
-  constructor( private registerService: RegistersService, private HttpClient: HttpClient) { }
+  email: string;
+  password: string;
+  name: string;
+  last_name: string;
+  country: string;
+  birth_date: Date;
+  phone_number: string;
+  constructor( private registerService: RegistersService) { }
 
   ngOnInit() {
   }
 
+  register(){
+    this.registerService.register(this.email,this.password,this.name,this.last_name,
+      this.country,this.birth_date, this.phone_number);
+
+  }
 }
