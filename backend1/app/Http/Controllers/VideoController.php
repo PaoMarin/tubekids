@@ -54,7 +54,7 @@ class VideoController extends Controller
     public function update(Request $request, Video $video)
     {
         $video->update($request->all());
-        return response()->json($article, 200);
+        return response()->json($video, 200);
     }
 
     /**
