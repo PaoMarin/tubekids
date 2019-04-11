@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { VideoDetailComponent } from './video-detail/video-detail.component';
+import { VideosCrudComponent } from './videos-crud/videos-crud.component';
 
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  {path: '', component: RegisterComponent}
+  {path: '', component: RegisterComponent},
+  { path: 'video', component: VideosCrudComponent },
+  { path: 'videos/:id', component: VideoDetailComponent },
 ];
 
 @NgModule({

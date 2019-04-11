@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    {{video.name}}
+    <a class="pull-right" routerLink="/videos">
+      Back
+    </a>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <tr>
+        <th>Video Link</th>
+        <td>${{video.link_video}}</td>
+      </tr>
+      <tr>
+        <th>Manufacturer</th>
+        <td>{{video.file_video}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

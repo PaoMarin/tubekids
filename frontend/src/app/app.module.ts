@@ -4,18 +4,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { LoginService } from './services/login.service';
 import { RegisterComponent } from './register/register.component';
 import { Route, RouterModule } from '@angular/router';
 import { RegistersService } from './services/registers.service';
 import { HttpClientModule } from  '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { VideosCrudComponent } from './videos-crud/videos-crud.component';
+import { VideoDetailComponent } from './video-detail/video-detail.component';
+
 const routes:Route[] = [
-  {path: '', component: RegisterComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: '', component: AppComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    VideosCrudComponent,
+    VideoDetailComponent,
     RegisterComponent
   ],
   imports: [
@@ -26,7 +35,8 @@ const routes:Route[] = [
     HttpClientModule
   ],
   providers: [
-    RegistersService
+    RegistersService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })

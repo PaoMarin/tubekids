@@ -1,0 +1,55 @@
+<div class="container">
+  <legend>Videos</legend>
+  <div class="form-inline" *ngIf="crud_operation.is_visible">
+    <label>Name:</label>
+    <input class="form-control" type="text" [(ngModel)]="current_video.name">
+    <label>Video URL:</label>
+    <input class="form-control" type="text" [(ngModel)]="current_video.url_video">
+    <label>Video File:</label>
+    <input class="form-control" type="text"  [(ngModel)]="current_video.file_video">
+    <button class="btn btn-primary"(click)="save()">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+      Save
+    </button>
+    <button class="btn btn-default"(click)="crud_operation.is_visible = false">
+      <i class="fa fa-ban" aria-hidden="true"></i>
+      Cancel
+    </button>
+  </div>
+  <div class="form-inline">
+    <input class="form-control" type="search" placeholder="Search here.." [(ngModel)]="query">
+    <button class="form-control btn btn-primary" (click)="ngOnInit()">OK</button>
+  </div>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th>Name</th>
+      <th>Video URL</th>
+      <th>Video File</th>
+      <th class="text-right">
+        <button class="btn btn-success" (click)="new()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button class="btn btn-info" (click)="ngOnInit()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+      </th>
+    </tr>
+    <tr *ngFor="let row of data">
+      <td>{{row.name}}</td>
+      <td>{{row.url_video}}</td>
+      <td>${{row.file_video}}</td>
+      <td class="text-right">
+        <div *ngIf="!row.confirm">
+          <button class="btn btn-warning" (click)="edit(row)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <button class="btn btn-danger" (click)="row.confirm = true"><i class="fa fa-times" aria-hidden="true"></i></button>
+          <a [routerLink]="['/videos/', row.id]" class="btn btn-info">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div *ngIf="row.confirm">
+          <button class="btn btn-danger" (click)="row.confirm = false">Cancel</button>
+          <button class="btn btn-success" (click)="delete(row.id)">Confirm</button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="data.length == 0">
+      <td colspan="4" class="text-center">No data available</td>
+    </tr>
+  </table>
+</div>
