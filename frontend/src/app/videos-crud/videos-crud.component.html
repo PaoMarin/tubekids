@@ -1,12 +1,12 @@
+{{current_video | json}}
+
 <div class="container">
   <legend>Videos</legend>
   <div class="form-inline" *ngIf="crud_operation.is_visible">
     <label>Name:</label>
     <input class="form-control" type="text" [(ngModel)]="current_video.name">
-    <label>Video URL:</label>
-    <input class="form-control" type="text" [(ngModel)]="current_video.url_video">
-    <label>Video File:</label>
-    <input class="form-control" type="text"  [(ngModel)]="current_video.file_video">
+    <label>Video:</label>
+    <input class="form-control" type="text"[(ngModel)]="current_video.video">
     <button class="btn btn-primary"(click)="save()">
       <i class="fa fa-floppy-o" aria-hidden="true"></i>
       Save
@@ -22,18 +22,18 @@
   </div>
   <table class="table table-striped table-hover">
     <tr>
+      <th>ID</th>
       <th>Name</th>
-      <th>Video URL</th>
-      <th>Video File</th>
+      <th>Video</th>
       <th class="text-right">
-        <button class="btn btn-success" (click)="new()"><i class="fa fa-plus" aria-hidden="true"></i></button>
-        <button class="btn btn-info" (click)="ngOnInit()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button class="btn btn-success" (click)="new()"><i class="fa fa-plus" aria-hidden="true"> New</i></button>
+        <button class="btn btn-info" (click)="ngOnInit()"><i class="fa fa-refresh" aria-hidden="true">Refresh</i></button>
       </th>
     </tr>
-    <tr *ngFor="let row of data">
+    <tr *ngFor="let row of current_video">
+      <td>{{row.id}}</td>
       <td>{{row.name}}</td>
-      <td>{{row.url_video}}</td>
-      <td>${{row.file_video}}</td>
+      <td>{{row.video}}</td>
       <td class="text-right">
         <div *ngIf="!row.confirm">
           <button class="btn btn-warning" (click)="edit(row)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -48,7 +48,7 @@
         </div>
       </td>
     </tr>
-    <tr *ngIf="data.length == 0">
+    <tr *ngIf="current_video.length == 0">
       <td colspan="4" class="text-center">No data available</td>
     </tr>
   </table>

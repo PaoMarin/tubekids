@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Video } from './video';
+import { Video } from '../video';
 import { Constants } from '../shared/constants';
 
 @Injectable()
@@ -14,6 +14,11 @@ export class VideoService {
       headers: new HttpHeaders(this.headers())
     });
   }
+
+   getAllVideos(){
+     const url_api = 'http://localhost:8000/api/videos';
+     return this.http.get(url_api);
+   }
 
   insert(data: Video) {
     return this.http.post(Constants.build_url('videos'), data, {
@@ -42,7 +47,10 @@ export class VideoService {
 
   headers() {
     return {
-        'Authorization': 'bearer ' + localStorage.getItem('token')
+        'Authorization': 'bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin' : origin,
+            'Access-Control-Allow-Credentials': 'true'
     }
   }
 }
