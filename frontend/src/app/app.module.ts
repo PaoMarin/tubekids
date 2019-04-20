@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from  '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -13,10 +12,9 @@ import { VideoDetailComponent } from './video-detail/video-detail.component';
 
 import { VideoService } from './services/video.service';
 import { LoginService } from './services/login.service';
-import { RegistersService } from './services/registers.service';
-
-
-
+import { RegisterService } from './services/register.service';
+import { ModalComponent } from './modal/modal.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -25,17 +23,18 @@ import { RegistersService } from './services/registers.service';
     LoginComponent,
     VideosCrudComponent,
     VideoDetailComponent,
-    RegisterComponent
+    RegisterComponent,
+    ModalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [
-    RegistersService,
+    RegisterService,
     VideoService,
     LoginService
   ],

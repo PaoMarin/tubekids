@@ -1,34 +1,12 @@
-{{current_video | json}}
-
 <div class="container">
   <legend>Videos</legend>
-  <div class="form-inline" *ngIf="crud_operation.is_visible">
-    <label>Name:</label>
-    <input class="form-control" type="text" [(ngModel)]="current_video.name">
-    <label>Video:</label>
-    <input class="form-control" type="text"[(ngModel)]="current_video.video">
-    <button class="btn btn-primary"(click)="save()">
-      <i class="fa fa-floppy-o" aria-hidden="true"></i>
-      Save
-    </button>
-    <button class="btn btn-default"(click)="crud_operation.is_visible = false">
-      <i class="fa fa-ban" aria-hidden="true"></i>
-      Cancel
-    </button>
-  </div>
-  <div class="form-inline">
-    <input class="form-control" type="search" placeholder="Search here.." [(ngModel)]="query">
-    <button class="form-control btn btn-primary" (click)="ngOnInit()">OK</button>
-  </div>
+  <button type ="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVideo"> New Video</button>
+  <button class="btn btn-info" (click)="ngOnInit()"><i class="fa fa-refresh" aria-hidden="true">Refresh</i></button>
   <table class="table table-striped table-hover">
     <tr>
       <th>ID</th>
       <th>Name</th>
       <th>Video</th>
-      <th class="text-right">
-        <button class="btn btn-success" (click)="new()"><i class="fa fa-plus" aria-hidden="true"> New</i></button>
-        <button class="btn btn-info" (click)="ngOnInit()"><i class="fa fa-refresh" aria-hidden="true">Refresh</i></button>
-      </th>
     </tr>
     <tr *ngFor="let row of current_video">
       <td>{{row.id}}</td>
@@ -36,10 +14,10 @@
       <td>{{row.video}}</td>
       <td class="text-right">
         <div *ngIf="!row.confirm">
-          <button class="btn btn-warning" (click)="edit(row)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-          <button class="btn btn-danger" (click)="row.confirm = true"><i class="fa fa-times" aria-hidden="true"></i></button>
+          <button class="btn btn-warning" (click)="edit(row)"><i class="fa fa-pencil" aria-hidden="true">Edit</i></button>
+          <button class="btn btn-danger" (click)="row.confirm = true"><i class="fa fa-times" aria-hidden="true">Delete</i></button>
           <a [routerLink]="['/videos/', row.id]" class="btn btn-info">
-            <i class="fa fa-eye" aria-hidden="true"></i>
+            <i class="fa fa-eye" aria-hidden="true">Info</i>
           </a>
         </div>
         <div *ngIf="row.confirm">
@@ -53,3 +31,4 @@
     </tr>
   </table>
 </div>
+<app-modal></app-modal>

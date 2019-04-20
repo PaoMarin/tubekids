@@ -8,17 +8,18 @@ export class VideoService {
   constructor(private http: HttpClient) {
   }
 
-  read(query = '') {
-    return this.http.get(Constants.build_url('videos'), {
-      params: { q: query },
-      headers: new HttpHeaders(this.headers())
-    });
-  }
 
    getAllVideos(){
      const url_api = 'http://localhost:8000/api/videos';
      return this.http.get(url_api);
    }
+   
+   read(query = '') {
+    return this.http.get(Constants.build_url('videos'), {
+      params: { q: query },
+      headers: new HttpHeaders(this.headers())
+    });
+  }
 
   insert(data: Video) {
     return this.http.post(Constants.build_url('videos'), data, {
