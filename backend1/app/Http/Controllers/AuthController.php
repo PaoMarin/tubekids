@@ -30,24 +30,20 @@ class AuthController extends Controller
             $diferencia =  $f1->diff($f2);
             if ($diferencia->format("%y") > 18) {
                 $user->save();
-
-
-                 /*Enviar el codigo de Confirmación
-                 Mail::send('emails.confirmation_code', ['email' =>  $user->email, 'name' => $user->name, 'confirmation_code' => $user->confirmation_code],function($message) use ($user){
-                    $message->to($user['email'], $user['name'])->subject('Por favor confirma tu registro!');
-                });*/
                  
-                $email = new \SendGrid\Mail\Mail(); 
-                $email->setFrom("tubekidsprogram@gmail.com", "Example User");
-                $email->setSubject("Sending with SendGrid is Fun");
-                $email->addTo($user->email, "Example User");
-                $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-                $email->addContent(
-                    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+                $email1 = new \SendGrid\Mail\Mail(); 
+                $email1->setFrom("tubekidsprogram@gmail.com", "Example User");
+                $email1->setSubject("Confirma tu registro a Tubekids!");
+                $email1->addTo($user->email, "Example User");
+                $email1->addContent(
+                    "text/html", "<h2>Hola {{ $user->name }}, gracias por registrarte en <strong>Tubekids</strong></h2>
+                    <p>Por favor confirma tu correo electrónico en SendGrid</p>
+                    <p>Para ello simplemente debes hacer click en el siguiente enlace:</p>"
+                    /*"<a href= " {{ url('/register/verify/'. {$user->$confirmation_code})}}"> Clic para confirmar tu email</a>"*/
                 );
                 $SENDGRID_API_KEY='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';
                 $sendgrid = new \SendGrid($SENDGRID_API_KEY);
-                $response = $sendgrid->send($email);
+                $response = $sendgrid->send($email1);
                 try {
                     return 
                      response([
@@ -87,7 +83,7 @@ class AuthController extends Controller
                 'error' => 'invalid.credentials',
                 'msg' => 'Invalid Credentials.'
             ], 400);
-      }
+     }
       return response([
             'status' => 'success',
             'token' => $token

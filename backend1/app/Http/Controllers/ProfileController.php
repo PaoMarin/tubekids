@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Video;
+use App\Profile;
 use Illuminate\Http\Request;
 
-class VideoController extends Controller
+class ProfileController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $videos= Video::all();
-        return response()->json($videos);
+        $profiles= Profile::all();
+        return response()->json($profiles);
     }
 
     /**
@@ -26,9 +26,9 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $video = Video::create($request->all());
+        $profile = Profile::create($request->all());
 
-        return response()->json($video, 201);
+        return response()->json($profile, 201);
     }
 
     /**
@@ -37,9 +37,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Video $video)
+    public function show(Profile $profile)
     {
-        return Video::find($video->id);
+        return $profile;
     }
 
   
@@ -50,10 +50,10 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Video $video)
+    public function update(Request $request, Profile $profile)
     {
-        $video->update($request->all());
-        return response()->json($video, 200);
+        $profile->update($request->all());
+        return response()->json($profile, 200);
     }
 
     /**
@@ -62,9 +62,9 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Video $video)
+    public function delete(Profile $profile)
     {
-        $video->delete($video->id);
+        $profile->delete();
         return response()->json(null, 204);
     }
 }
