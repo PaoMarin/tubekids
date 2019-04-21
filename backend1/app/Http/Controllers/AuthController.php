@@ -12,6 +12,10 @@ use Mail;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['login']]);
+    }
     public function register(Request $request)
     {
             $user = new User;
@@ -74,28 +78,31 @@ class AuthController extends Controller
             return redirect('/login')->with('notification', 'Has confirmado correctamente tu correo!');
         }
 
-    public function login(Request $request)
-    {
-      $credentials = $request->only('email', 'password');
-      if ( ! $token = JWTAuth::attempt($credentials)) {
-            return response([
-                'status' => 'error',
-                'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
-            ], 400);
-     }
-      return response([
-            'status' => 'success',
-            'token' => $token
-        ]);
-    }
+        public function login(Request $request)
+        {
+            $credentials = request(['email', 'password']);
+        
+            if (! $token = auth('api')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
 
-    public function logout()
-    {
-        JWTAuth::invalidate();
-        return response([
-                'status' => 'success',
-                'msg' => 'Logged out Successfully.'
-            ], 200);
-    }
+            return $this->respondWithToken($token);
+        }
+
+        public function logout()
+        {
+            auth()->logout();
+    
+            return response()->json(['message' => 'Successfully logged out'],200);
+        }
+
+        protected function respondWithToken($token)
+        {
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth('api')->factory()->getTTL() * 60
+            ]);
+        }
+        
 }
