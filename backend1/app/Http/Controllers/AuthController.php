@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+//require __DIR__ . '/vendor/autoload.php';
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterFormRequest;
 use App\User;
@@ -9,6 +10,7 @@ use JWTAuth;
 use Auth;
 use DateTime;
 use Mail;
+use Twilio\Rest\Client;
 
 class AuthController extends Controller
 {
@@ -45,8 +47,9 @@ class AuthController extends Controller
                     <p>Para ello simplemente debes hacer click en el siguiente enlace:</p>"
                     /*"<a href= " {{ url('/register/verify/'. {$user->$confirmation_code})}}"> Clic para confirmar tu email</a>"*/
                 );
-                $SENDGRID_API_KEY='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';
-                $sendgrid = new \SendGrid($SENDGRID_API_KEY);
+                $sendgrid_token = getenv('SENDGRID_API_KEY');
+               // $sendgrid_token = $_ENV["SENDGRID_API_KEY"];
+                $sendgrid = new \SendGrid($sendgrid_token);
                 $response = $sendgrid->send($email1);
                 try {
                     return 
@@ -82,11 +85,40 @@ class AuthController extends Controller
         {
             $credentials = request(['email', 'password']);
         
-            if (! $token = auth('api')->attempt($credentials)) {
+            if (!$token = auth('api')->attempt($credentials)) {
                 return response()->json(['error' => 'Unauthorized'], 401);
-            }
+            } else {
+                // Your Account SID and Auth Token from twilio.com/console
+                $account_sid = 'ACf8d3619e2650cb1046800b000466f219';
+                // In production, these should be environment variables. E.g.:
+                $auth_token = getenv('TWILIO_ACCOUNT_SID');
+                // $auth_token = $_ENV["TWILIO_ACCOUNT_SID"];
+                // A Twilio number you own with SMS capabilities
+                $twilio_number = "+15732344322";
 
-            return $this->respondWithToken($token);
+                $client = new Client($account_sid, $auth_token);
+                $pin_code = str_random(5);
+                $client->messages->create(
+                    // Where to send a text message (your cell phone?)
+                    //$user->phone_number,
+                    '86278151',
+                    array(
+                        'from' => $twilio_number,
+                        'body' => $pin_code
+                    )
+                );
+                return $this->respondWithToken($token);
+            }
+        }
+
+        public function verifySMS($pin_code)
+        {
+            $user = User::where('pin_code', $pin_code)->first();
+        
+            if (! $user)
+                return redirect('/');
+        
+            return redirect('/video')->with('notification', 'Has confirmado correctamente tu correo!');
         }
 
         public function logout()

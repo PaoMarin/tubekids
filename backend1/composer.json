@@ -14,8 +14,8 @@
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "~1.0",
         "sendgrid/sendgrid": "^7.3",
+        "twilio/sdk": "^5.31",
         "tymon/jwt-auth": "dev-develop"
-        
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
