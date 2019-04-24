@@ -101,7 +101,7 @@ class AuthController extends Controller
                 $client->messages->create(
                     // Where to send a text message (your cell phone?)
                     //$user->phone_number,
-                    '86278151',
+                    '+50686278151',
                     array(
                         'from' => $twilio_number,
                         'body' => $pin_code
