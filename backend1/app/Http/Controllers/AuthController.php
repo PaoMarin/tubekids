@@ -41,14 +41,9 @@ class AuthController extends Controller
                 $email1->setFrom("tubekidsprogram@gmail.com", "Example User");
                 $email1->setSubject("Confirma tu registro a Tubekids!");
                 $email1->addTo($user->email, "Example User");
-                $email1->addContent(
-                    "text/html", "<h2>Hola {{ $user->name }}, gracias por registrarte en <strong>Tubekids</strong></h2>
-                    <p>Por favor confirma tu correo electrónico en SendGrid</p>
-                    <p>Para ello simplemente debes hacer click en el siguiente enlace:</p>"
-                    /*"<a href= " {{ url('/register/verify/'. {$user->$confirmation_code})}}"> Clic para confirmar tu email</a>"*/
-                );
+                $email1->addContent("text/html", "/emails.confirmation_code");
+                
                 $sendgrid_token = getenv('SENDGRID_API_KEY');
-               // $sendgrid_token = $_ENV["SENDGRID_API_KEY"];
                 $sendgrid = new \SendGrid($sendgrid_token);
                 $response = $sendgrid->send($email1);
                 try {
